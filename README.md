@@ -53,6 +53,6 @@ Lista de tarefas
 
 - Heroku
   - Aplicação disponível em:
-  - [https://todo-list-leo.herokuapp.com/](https://todo-list-leo.herokuapp.com/)
+  - [http://todo-list-leo.herokuapp.com/](http://todo-list-leo.herokuapp.com/)
 
 <hr>
