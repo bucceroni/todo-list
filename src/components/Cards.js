@@ -23,13 +23,18 @@ const styles = {
   },
   media: {
     height: 140
+  },
+  completed: {
+    textDecoration: "line-through"
   }
 };
 
 const Cards = props => {
   return (
     <Card className={props.classes.card}>
-      <CardContent>
+      <CardContent
+        className={props.item.completed ? props.classes.completed : null}
+      >
         <Typography gutterBottom variant="h5" component="h2">
           {props.item.description}
         </Typography>
@@ -39,12 +44,14 @@ const Cards = props => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button color="primary">Editar</Button>
         <Button
-          onClick={() => props.actions.deleteTodo(props.item._id)}
+          onClick={() => props.actions.updateTodo(props.item)}
           color="primary"
         >
-          Concluir
+          Editar
+        </Button>
+        <Button onClick={() => props.actions.completeTask(props.item)}>
+          {props.item.completed ? "Desfazer" : "Concluir"}
         </Button>
         <Button
           onClick={() => props.actions.deleteTodo(props.item._id)}

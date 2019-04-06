@@ -13,25 +13,30 @@ export function getUserTodos(user) {
 export function createTodo(todo) {
   return async (dispatch, getState) => {
     const res = await api.createTodo(todo);
-    const todos = getState().todoReducer.todos
-  
+    const todos = getState().todoReducer.todos;
+
     dispatch({
       type: types.CREATE_TODO,
-      payload: [...todos,res]
+      payload: [...todos, res]
     });
   };
 }
 
-export function completeTodo(todo) {
+export function completeTask(task) {
   return async (dispatch, getState) => {
-    const res = await api.updateTodo(todo);
+    const item = {
+      _id: task._id,
+      completed: !task.completed
+    };
+
+    const res = await api.updateTodo(item);
     const todos = getState().todoReducer.todos.map(todo => {
       return todo._id === res._id ? res : todo;
     });
 
     dispatch({
       type: types.UPDATE_TODO,
-      payload: todos.push()
+      payload: todos
     });
   };
 }

@@ -17,9 +17,9 @@ class Api {
       .catch(() => []);
   }
 
-  static async updateTodo(id) {
+  static async updateTodo(task) {
     return await axios
-      .put(`${URL}/update/${id}`)
+      .put(`${URL}/update/${task._id}`, task)
       .then(res => res.data)
       .catch(() => []);
   }
