@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://todo-list-api-leo.herokuapp.com/todos";
+const URL = "https://todo-list-api-leo.herokuapp.com/todos";
 
 class Api {
   static async getUserTodos(user) {
@@ -13,7 +13,7 @@ class Api {
   static async createTodo(todo) {
     return await axios
       .post(`${URL}/create`, todo)
-      .then(res => res.data)
+      .then(res => res.data.todo)
       .catch(() => []);
   }
 

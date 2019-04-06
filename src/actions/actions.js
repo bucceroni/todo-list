@@ -11,10 +11,27 @@ export function getUserTodos(user) {
 }
 
 export function createTodo(todo) {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const res = await api.createTodo(todo);
+    const todos = getState().todoReducer.todos
+  
     dispatch({
       type: types.CREATE_TODO,
-      payload: await api.createTodo(todo)
+      payload: [...todos,res]
+    });
+  };
+}
+
+export function completeTodo(todo) {
+  return async (dispatch, getState) => {
+    const res = await api.updateTodo(todo);
+    const todos = getState().todoReducer.todos.map(todo => {
+      return todo._id === res._id ? res : todo;
+    });
+
+    dispatch({
+      type: types.UPDATE_TODO,
+      payload: todos.push()
     });
   };
 }
@@ -29,10 +46,15 @@ export function updateTodo(id) {
 }
 
 export function deleteTodo(id) {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const res = await api.deleteTodo(id);
+    const todos = getState().todoReducer.todos.filter(
+      todo => todo._id !== res._id
+    );
+
     dispatch({
       type: types.DELETE_TODO,
-      payload: await api.deleteTodo(id)
+      payload: todos
     });
   };
 }

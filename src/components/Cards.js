@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 //REACT ROUTER
 import { withRouter } from "react-router-dom";
 //MOMENT
-// import moment from "moment";
+import moment from "moment";
 //MATERIAL UI
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -29,24 +29,30 @@ const styles = {
 const Cards = props => {
   return (
     <Card className={props.classes.card}>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.item.category}
-          </Typography>
-          <Typography component="p">
-            {/* Published date: {moment(props.item.createdAt).format("LLL")} */}
-          </Typography>
-          <Typography component="p">{props.item.description}</Typography>
-        </CardContent>
-        <CardActions>
-          <Button variant="contained" color="primary">
-            Editar
-          </Button>
-          <Button variant="contained" color="secondary">
-            Deletar
-          </Button>
-        </CardActions>
-     
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
+          {props.item.description}
+        </Typography>
+        <Typography component="p">Category: {props.item.category}</Typography>
+        <Typography component="p">
+          Date: {moment(props.item.createdAt).format("LL")}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button color="primary">Editar</Button>
+        <Button
+          onClick={() => props.actions.deleteTodo(props.item._id)}
+          color="primary"
+        >
+          Concluir
+        </Button>
+        <Button
+          onClick={() => props.actions.deleteTodo(props.item._id)}
+          color="secondary"
+        >
+          Deletar
+        </Button>
+      </CardActions>
     </Card>
   );
 };

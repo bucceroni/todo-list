@@ -25,6 +25,8 @@ Lista de tarefas
     - Redux Thunk - `npm install redux-thunk`
     - Redux - `npm install redux`
     - React Redux - `npm install react-redux`
+    - Recompose - `npm install recompose`
+    - Moment - `npm install moment`
 
 - Back
 
