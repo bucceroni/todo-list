@@ -41,11 +41,18 @@ export function completeTask(task) {
   };
 }
 
-export function updateTodo(id) {
-  return async dispatch => {
+export function updateTask(task) {
+  return async (dispatch, getState) => {
+    console.log(task);
+
+    const res = await api.updateTodo(task);
+    const todos = getState().todoReducer.todos.map(todo => {
+      return todo._id === res._id ? res : todo;
+    });
+
     dispatch({
       type: types.UPDATE_TODO,
-      payload: await api.updateTodo(id)
+      payload: todos
     });
   };
 }

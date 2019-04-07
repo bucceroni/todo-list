@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-//REACT ROUTER
+// REACT ROUTER
 import { withRouter } from "react-router-dom";
-//MOMENT
+// MOMENT
 import moment from "moment";
-//MATERIAL UI
+// MATERIAL UI
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -33,28 +33,25 @@ const Cards = props => {
   return (
     <Card className={props.classes.card}>
       <CardContent
-        className={props.item.completed ? props.classes.completed : null}
+        className={props.task.completed ? props.classes.completed : null}
       >
         <Typography gutterBottom variant="h5" component="h2">
-          {props.item.description}
+          {props.task.description}
         </Typography>
-        <Typography component="p">Category: {props.item.category}</Typography>
+        <Typography component="p">Category: {props.task.category}</Typography>
         <Typography component="p">
-          Date: {moment(props.item.createdAt).format("LL")}
+          Data: {moment(props.task.createdAt).format("DD/MM/YYYY")}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
-          onClick={() => props.actions.updateTodo(props.item)}
-          color="primary"
-        >
+        <Button disabled={props.task.completed} onClick={() => props.showModalTask(props.task)} color="primary">
           Editar
         </Button>
-        <Button onClick={() => props.actions.completeTask(props.item)}>
-          {props.item.completed ? "Desfazer" : "Concluir"}
+        <Button onClick={() => props.actions.completeTask(props.task)}>
+          {props.task.completed ? "Desfazer" : "Concluir"}
         </Button>
         <Button
-          onClick={() => props.actions.deleteTodo(props.item._id)}
+          onClick={() => props.actions.deleteTodo(props.task._id)}
           color="secondary"
         >
           Deletar
@@ -66,7 +63,7 @@ const Cards = props => {
 
 Cards.propTypes = {
   classes: PropTypes.object.isRequired,
-  item: PropTypes.object
+  task: PropTypes.object
 };
 
 export default withRouter(withStyles(styles)(Cards));

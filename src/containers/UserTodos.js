@@ -1,24 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
 import compose from "recompose/compose";
-//REACT ROUTER
+// REACT ROUTER
 import { withRouter } from "react-router-dom";
-//MATERIAL UI
-import Grid from "@material-ui/core/Grid";
+// REDUX
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "../actions/actions";
+// MOMENT
+// import moment from "moment";
 // MATERIAL UI
 import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@material-ui/core";
-//REDUX
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as actions from "../actions/actions";
-//COMPONENTS
+// COMPONENTS
 import Header from "../components/Header";
 import Cards from "../components/Cards";
+import ModalTask from "../components/ModalTask";
 
 const styles = {
   root: {
@@ -39,7 +41,10 @@ class UserTodos extends React.Component {
   state = {
     newTask: "",
     newCategory: "",
-    completed: ""
+    // newDate: new Date(),
+    // completed: "",
+    openModalTask: false,
+    editTask: null
   };
 
   componentDidMount() {
@@ -66,9 +71,20 @@ class UserTodos extends React.Component {
     });
   };
 
+  handleShowModalTask = task => {
+    this.setState({
+      openModalTask: true,
+      editTask: task
+    });
+  };
+
+  handleCloseModalTask = () => {
+    this.setState({ openModalTask: false, editTask: null });
+  };
+
   render() {
     const { classes, actions, todos } = this.props;
-    const { newTask, newCategory } = this.state;
+    const { newTask, newCategory, openModalTask, editTask } = this.state;
 
     return (
       <div>
@@ -116,14 +132,26 @@ class UserTodos extends React.Component {
 
         <Grid container spacing={24}>
           {todos &&
-            todos.map((item, index) => {
+            todos.map((task, index) => {
               return (
                 <Grid item xs key={index}>
-                  <Cards item={item} index={index} actions={actions} />
+                  <Cards
+                    task={task}
+                    index={index}
+                    actions={actions}
+                    showModalTask={this.handleShowModalTask}
+                  />
                 </Grid>
               );
             })}
         </Grid>
+        {openModalTask && (
+          <ModalTask
+            open={openModalTask}
+            close={this.handleCloseModalTask}
+            task={editTask}
+          />
+        )}
       </div>
     );
   }
