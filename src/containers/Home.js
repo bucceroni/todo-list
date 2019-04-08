@@ -4,11 +4,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 // MATERIAL UI
 import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
+import { Grid, Typography, Paper, InputBase } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from "@material-ui/icons/Send";
-import { Grid, Typography } from "@material-ui/core";
 //COMPONENTS
 import Header from "../components/Header";
 
@@ -18,7 +16,7 @@ const styles = {
     alignItems: "center"
   },
   paperTypography: {
-    marginLeft: "10px"
+    marginLeft: "8px"
   },
   paperInputBase: {
     flex: 1,
@@ -54,7 +52,7 @@ class Home extends React.Component {
               Don't login, just use a URL or search the user
             </Typography>
           </Grid>
-          <Grid className={classes.spacing} item>
+          <Grid className={classes.spacing} item xs={11}>
             <Paper className={classes.paper} elevation={1}>
               <Typography className={classes.paperTypography}>
                 https://todo-list-leo.herokuapp.com/
@@ -70,6 +68,7 @@ class Home extends React.Component {
                 <IconButton
                   className={classes.paperIconButton}
                   aria-label="Send"
+                  disabled={!user}
                 >
                   <SendIcon />
                 </IconButton>

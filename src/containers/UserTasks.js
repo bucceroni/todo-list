@@ -11,38 +11,34 @@ import * as actions from "../actions/actions";
 // import moment from "moment";
 // MATERIAL UI
 import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import IconButton from "@material-ui/core/IconButton";
+import { Typography, TextField, Grid, Fab, Divider } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@material-ui/core";
 // COMPONENTS
 import Header from "../components/Header";
 import Cards from "../components/Cards";
 import ModalTask from "../components/ModalTask";
 
 const styles = {
-  root: {
+  paper: {
     display: "flex",
-    alignItems: "center",
-    width: "100%"
+    alignItems: "center"
   },
-  input: {
+  paperInput: {
     marginLeft: 8,
     flex: 1
   },
   iconButton: {
     padding: 10
+  },
+  spacing: {
+    margin: "15px 0"
   }
 };
 
-class UserTodos extends React.Component {
+class UserTasks extends React.Component {
   state = {
     newTask: "",
     newCategory: "",
-    // newDate: new Date(),
-    // completed: "",
     openModalTask: false,
     editTask: null
   };
@@ -56,7 +52,7 @@ class UserTodos extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
-  handlecreateTask = () => {
+  handleCreateTask = () => {
     const { actions, match } = this.props;
     const { newTask, newCategory } = this.state;
     const todo = {
@@ -89,46 +85,59 @@ class UserTodos extends React.Component {
     return (
       <div>
         <Header />
-
-        <Typography
-          style={{ marginTop: "50px" }}
-          variant="title"
-          gutterBottom
-          align="center"
+        <Grid container direction="column" justify="right" alignItems="center">
+          <Grid className={classes.spacing} item>
+            <Typography variant="title" align="center">
+              {tasks.length === 0
+                ? "No tasks have been created"
+                : `Total: ${tasks.length} tasks`}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={8}
         >
-          {tasks.length === 0
-            ? "Não existe tarefas cadastradas no momento"
-            : `Total de tarefas: ${tasks.length}`}
-        </Typography>
+          <Grid item>
+            <TextField
+              id="outlined-multiline-flexible"
+              label="New task"
+              multiline
+              rowsMax="5"
+              value={newTask}
+              onChange={this.handleChange("newTask")}
+              margin="normal"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Category"
+              multiline
+              rowsMax="5"
+              value={newCategory}
+              onChange={this.handleChange("newCategory")}
+              margin="normal"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item>
+            <Fab
+              color="primary"
+              aria-label="Add"
+              disabled={newTask === "" || newCategory === ""}
+              onClick={this.handleCreateTask}
+            >
+              <AddIcon />
+            </Fab>
+          </Grid>
+        </Grid>
 
-        <Paper
-          style={{ marginTop: "50px" }}
-          className={classes.root}
-          elevation={3}
-          align="center"
-        >
-          <InputBase
-            value={newCategory}
-            onChange={this.handleChange("newCategory")}
-            className={classes.input}
-            placeholder="Categoria"
-          />
-          <InputBase
-            value={newTask}
-            onChange={this.handleChange("newTask")}
-            className={classes.input}
-            placeholder="Nova tarefa"
-          />
-
-          <IconButton
-            disabled={newTask === "" || newCategory === ""}
-            onClick={this.handlecreateTask}
-            className={classes.iconButton}
-            aria-label="Add"
-          >
-            <AddIcon />
-          </IconButton>
-        </Paper>
+        <Divider />
 
         <Grid container spacing={24}>
           {tasks &&
@@ -157,7 +166,7 @@ class UserTodos extends React.Component {
   }
 }
 
-UserTodos.propTypes = {
+UserTasks.propTypes = {
   classes: PropTypes.object.isRequired,
   tasks: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
@@ -186,4 +195,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(withRouter(UserTodos));
+)(withRouter(UserTasks));

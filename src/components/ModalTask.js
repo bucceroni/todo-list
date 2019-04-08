@@ -11,15 +11,18 @@ import * as actions from "../actions/actions";
 import moment from "moment";
 // MATERIAL UI
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { Typography, TextField } from "@material-ui/core";
+import {
+  Typography,
+  TextField,
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button
+} from "@material-ui/core";
 
 const styles = {};
-
 class ModalTask extends React.Component {
   state = {
     editTask: {
@@ -72,27 +75,41 @@ class ModalTask extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">Editar tarefa</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Edit task</DialogTitle>
           <DialogContent>
-            <TextField
-              id="standard-description"
-              label="description"
-              //   className={classes.textField}
-              value={editTask.description}
-              onChange={this.handleChange("description")}
-              margin="normal"
-            />
-            <TextField
-              id="standard-category"
-              label="category"
-              //   className={classes.textField}
-              value={editTask.category}
-              onChange={this.handleChange("category")}
-              margin="normal"
-            />
-
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="Task"
+                  multiline
+                  rowsMax="5"
+                  value={editTask.description}
+                  onChange={this.handleChange("description")}
+                  margin="normal"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="Category"
+                  multiline
+                  rowsMax="5"
+                  value={editTask.category}
+                  onChange={this.handleChange("category")}
+                  margin="normal"
+                  variant="outlined"
+                />
+              </Grid>
+            </Grid>
             <Typography component="p">
-              Data: {moment(editTask.createdAt).format("DD/MM/YYYY")}
+              Date: {moment(editTask.createdAt).format("DD/MM/YYYY")}
             </Typography>
           </DialogContent>
           <DialogActions>
@@ -110,9 +127,9 @@ class ModalTask extends React.Component {
 }
 
 ModalTask.propTypes = {
-  open: PropTypes.bool,
-  clsoe: PropTypes.func,
-  task: PropTypes.object,
+  open: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+  task: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };

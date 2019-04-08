@@ -40,21 +40,25 @@ const Cards = props => {
         </Typography>
         <Typography component="p">Category: {props.task.category}</Typography>
         <Typography component="p">
-          Data: {moment(props.task.createdAt).format("DD/MM/YYYY")}
+          Date: {moment(props.task.createdAt).format("DD/MM/YYYY")}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button disabled={props.task.completed} onClick={() => props.showModalTask(props.task)} color="primary">
-          Editar
+        <Button
+          disabled={props.task.completed}
+          onClick={() => props.showModalTask(props.task)}
+          color="primary"
+        >
+          Edit
         </Button>
         <Button onClick={() => props.actions.completeTask(props.task)}>
-          {props.task.completed ? "Desfazer" : "Concluir"}
+          {props.task.completed ? "Undo" : "Done"}
         </Button>
         <Button
           onClick={() => props.actions.deleteTask(props.task._id)}
           color="secondary"
         >
-          Deletar
+          Delete
         </Button>
       </CardActions>
     </Card>
