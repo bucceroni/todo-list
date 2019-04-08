@@ -64,7 +64,6 @@ class ModalTask extends React.Component {
   render() {
     const { open, close } = this.props;
     const { editTask } = this.state;
-    console.log(editTask);
     return (
       <div>
         <Dialog
@@ -120,7 +119,7 @@ ModalTask.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todoReducer.todos
+    tasks: state.todoReducer.tasks
   };
 };
 

@@ -51,7 +51,7 @@ const Cards = props => {
           {props.task.completed ? "Desfazer" : "Concluir"}
         </Button>
         <Button
-          onClick={() => props.actions.deleteTodo(props.task._id)}
+          onClick={() => props.actions.deleteTask(props.task._id)}
           color="secondary"
         >
           Deletar

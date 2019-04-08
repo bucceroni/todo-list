@@ -49,14 +49,14 @@ class UserTodos extends React.Component {
 
   componentDidMount() {
     const { actions, match } = this.props;
-    actions.getUserTodos(match.params.user);
+    actions.getTasksUser(match.params.user);
   }
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleCreateTodo = () => {
+  handlecreateTask = () => {
     const { actions, match } = this.props;
     const { newTask, newCategory } = this.state;
     const todo = {
@@ -64,7 +64,7 @@ class UserTodos extends React.Component {
       category: newCategory,
       description: newTask
     };
-    actions.createTodo(todo);
+    actions.createTask(todo);
     this.setState({
       newTask: "",
       newCategory: ""
@@ -83,7 +83,7 @@ class UserTodos extends React.Component {
   };
 
   render() {
-    const { classes, actions, todos } = this.props;
+    const { classes, actions, tasks } = this.props;
     const { newTask, newCategory, openModalTask, editTask } = this.state;
 
     return (
@@ -96,9 +96,9 @@ class UserTodos extends React.Component {
           gutterBottom
           align="center"
         >
-          {todos.length === 0
+          {tasks.length === 0
             ? "Não existe tarefas cadastradas no momento"
-            : `Total de tarefas: ${todos.length}`}
+            : `Total de tarefas: ${tasks.length}`}
         </Typography>
 
         <Paper
@@ -122,7 +122,7 @@ class UserTodos extends React.Component {
 
           <IconButton
             disabled={newTask === "" || newCategory === ""}
-            onClick={this.handleCreateTodo}
+            onClick={this.handlecreateTask}
             className={classes.iconButton}
             aria-label="Add"
           >
@@ -131,8 +131,8 @@ class UserTodos extends React.Component {
         </Paper>
 
         <Grid container spacing={24}>
-          {todos &&
-            todos.map((task, index) => {
+          {tasks &&
+            tasks.map((task, index) => {
               return (
                 <Grid item xs key={index}>
                   <Cards
@@ -159,13 +159,13 @@ class UserTodos extends React.Component {
 
 UserTodos.propTypes = {
   classes: PropTypes.object.isRequired,
-  todos: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    todos: state.todoReducer.todos
+    tasks: state.todoReducer.tasks
   };
 };
 

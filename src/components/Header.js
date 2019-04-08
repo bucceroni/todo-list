@@ -12,7 +12,8 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: 30
   },
   grow: {
     flexGrow: 1

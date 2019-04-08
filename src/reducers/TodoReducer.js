@@ -1,32 +1,37 @@
 import * as types from "../actions/types";
 
 const initialState = {
-  todos: []
+  tasks: []
 };
 
 export default function reduce(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case `${types.GET_TODOS}`:
+    case `${types.GET_TASKS}`:
       return {
         ...state,
-        todos: payload
+        tasks: payload
       };
-    case `${types.CREATE_TODO}`:
+    case `${types.CREATE_TASK}`:
       return {
         ...state,
-        todos: payload
+        tasks: payload
       };
-    case `${types.UPDATE_TODO}`:
+    case `${types.COMPLETE_TASK}`:
       return {
         ...state,
-        todos: payload
+        tasks: payload
       };
-    case `${types.DELETE_TODO}`:
+    case `${types.UPDATE_TASK}`:
       return {
         ...state,
-        todos: payload
+        tasks: payload
+      };
+    case `${types.DELETE_TASK}`:
+      return {
+        ...state,
+        tasks: payload
       };
     default:
       return state;

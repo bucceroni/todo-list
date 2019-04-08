@@ -1,4 +1,5 @@
-export const GET_TODOS = "GET_TODOS";
-export const CREATE_TODO = "CREATE_TODO";
-export const DELETE_TODO = "DELETE_TODO";
-export const UPDATE_TODO = "UPDATE_TODO";
+export const GET_TASKS = "GET_TASKS";
+export const CREATE_TASK = "CREATE_TASK";
+export const UPDATE_TASK = "UPDATE_TASK";
+export const COMPLETE_TASK = "COMPLETE_TASK";
+export const DELETE_TASK = "DELETE_TASK";
