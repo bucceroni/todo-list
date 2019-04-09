@@ -19,6 +19,7 @@ Lista de tarefas
   - Dependências
     - Material UI - `npm install @material-ui/core`
     - Material Icon - `npm install @material-ui/icons`
+    - Material UI Pickers - `npm i material-ui-pickers`
     - React Router - `npm install react-router-dom`
     - Axios - `npm install axios`
     - Redux Logger - `npm install redux-logger`
@@ -26,7 +27,7 @@ Lista de tarefas
     - Redux - `npm install redux`
     - React Redux - `npm install react-redux`
     - Recompose - `npm install recompose`
-    - Moment - `npm install moment`
+    - Moment - `npm install moment @date-io/moment`
 
 - Back
 

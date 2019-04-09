@@ -7,8 +7,6 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "../actions/actions";
-// MOMENT
-// import moment from "moment";
 // MATERIAL UI
 import { withStyles } from "@material-ui/core/styles";
 import { Typography, TextField, Grid, Fab, Divider } from "@material-ui/core";
@@ -17,21 +15,21 @@ import AddIcon from "@material-ui/icons/Add";
 import Header from "../components/Header";
 import Cards from "../components/Cards";
 import ModalTask from "../components/ModalTask";
+import TextFieldDate from "../components/TextFieldDate";
 
 const styles = {
   paper: {
     display: "flex",
     alignItems: "center"
   },
-  paperInput: {
-    marginLeft: 8,
-    flex: 1
-  },
-  iconButton: {
-    padding: 10
+  textField: {
+    marginTop: 10
   },
   spacing: {
     margin: "15px 0"
+  },
+  divider: {
+    margin: "45px 0px 15px 0px"
   }
 };
 
@@ -39,6 +37,7 @@ class UserTasks extends React.Component {
   state = {
     newTask: "",
     newCategory: "",
+    newDate: new Date(),
     openModalTask: false,
     editTask: null
   };
@@ -52,18 +51,24 @@ class UserTasks extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
+  handleChangeDate = date => {
+    this.setState({ newDate: date });
+  };
+
   handleCreateTask = () => {
     const { actions, match } = this.props;
-    const { newTask, newCategory } = this.state;
+    const { newTask, newCategory, newDate } = this.state;
     const todo = {
       user: match.params.user,
       category: newCategory,
-      description: newTask
+      description: newTask,
+      createdAt: newDate
     };
     actions.createTask(todo);
     this.setState({
       newTask: "",
-      newCategory: ""
+      newCategory: "",
+      newDate: new Date()
     });
   };
 
@@ -80,12 +85,18 @@ class UserTasks extends React.Component {
 
   render() {
     const { classes, actions, tasks } = this.props;
-    const { newTask, newCategory, openModalTask, editTask } = this.state;
+    const {
+      newTask,
+      newCategory,
+      newDate,
+      openModalTask,
+      editTask
+    } = this.state;
 
     return (
       <div>
         <Header />
-        <Grid container direction="column" justify="right" alignItems="center">
+        <Grid container direction="column" alignItems="center">
           <Grid className={classes.spacing} item>
             <Typography variant="title" align="center">
               {tasks.length === 0
@@ -125,7 +136,10 @@ class UserTasks extends React.Component {
               variant="outlined"
             />
           </Grid>
-          <Grid item>
+          <Grid className={classes.textField} item>
+            <TextFieldDate date={newDate} onChange={this.handleChangeDate} />
+          </Grid>
+          <Grid className={classes.textField} item>
             <Fab
               color="primary"
               aria-label="Add"
@@ -137,7 +151,7 @@ class UserTasks extends React.Component {
           </Grid>
         </Grid>
 
-        <Divider />
+        <Divider className={classes.divider} />
 
         <Grid container spacing={24}>
           {tasks &&

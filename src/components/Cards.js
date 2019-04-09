@@ -40,7 +40,7 @@ const Cards = props => {
         </Typography>
         <Typography component="p">Category: {props.task.category}</Typography>
         <Typography component="p">
-          Date: {moment(props.task.createdAt).format("DD/MM/YYYY")}
+          Date: {moment(props.task.createdAt).format("MM/DD/YYYY")}
         </Typography>
       </CardContent>
       <CardActions>

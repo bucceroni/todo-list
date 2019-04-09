@@ -109,15 +109,15 @@ class ModalTask extends React.Component {
               </Grid>
             </Grid>
             <Typography component="p">
-              Date: {moment(editTask.createdAt).format("DD/MM/YYYY")}
+              Date: {moment(editTask.createdAt).format("MM/DD/YYYY")}
             </Typography>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleUpdateTask} color="primary">
-              Salvar
+              Save
             </Button>
             <Button onClick={close} color="secondary" autoFocus>
-              Fechar
+              Close
             </Button>
           </DialogActions>
         </Dialog>
